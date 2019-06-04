@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class BowScript : MonoBehaviour
+public class Bow : MonoBehaviour
 {
     [Header("Bow")]
     public Transform bowModel;
@@ -43,13 +43,6 @@ public class BowScript : MonoBehaviour
     public float camZoomFov;
     private Vector3 camOriginalPos;
     public Vector3 camZoomOffset;
-
-    [Space]
-
-    [Header("Particles")]
-    public ParticleSystem[] prepareParticles;
-    public ParticleSystem[] aimParticles;
-    public GameObject circleParticlePrefab;
 
     [Space]
 
@@ -105,7 +98,6 @@ public class BowScript : MonoBehaviour
             {
                 StopAllCoroutines();
                 float percentage = forceDuration / maxForceDuration;
-                //StopCoroutine(ShootSequence());
                 StartCoroutine(ShootSequence(percentage));
             }
         }
@@ -117,7 +109,7 @@ public class BowScript : MonoBehaviour
         Camera.main.DOFieldOfView(fov, duration);
         Camera.main.transform.DOLocalMove(camPos, duration);
         bowModel.transform.DOLocalRotate(bowRot, duration).SetEase(Ease.OutBack);
-        bowModel.transform.DOLocalMove(bowPos, duration).OnComplete(()=>ShowArrow(zoom));
+        bowModel.transform.DOLocalMove(bowPos, duration).OnComplete(() => ShowArrow(zoom));
     }
 
     public void ShowArrow(bool state)
@@ -128,30 +120,18 @@ public class BowScript : MonoBehaviour
     public IEnumerator PrepareSequence()
     {
         canShoot = true;
-        foreach (ParticleSystem part in prepareParticles)
-        {
-            part.Play();
-        }
+
         while (forceDuration <= maxForceDuration)
         {
             forceDuration += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
-        foreach (ParticleSystem part in aimParticles)
-        {
-            part.Play();
-        }
         forceDuration = maxForceDuration;
-
-        //yield return new WaitForSeconds(timeToShoot);
-
-
-        
     }
 
     public IEnumerator ShootSequence(float percentage)
     {
-        yield return new WaitUntil(()=>canShoot == true);
+        yield return new WaitUntil(() => canShoot == true);
 
         shootRest = true;
 
@@ -162,18 +142,13 @@ public class BowScript : MonoBehaviour
 
         CameraZoom(camOriginalFov, camOriginalPos, bowOriginalPos, bowOriginalRot, zoomOutDuration, true);
         arrowModel.transform.localPosition = arrowOriginalPos;
-
-        Instantiate(circleParticlePrefab, arrowSpawnOrigin.position, Quaternion.identity);
-
         GameObject arrow = Instantiate(arrowPrefab, arrowSpawnOrigin.position, bowModel.rotation);
-        
-        arrow.GetComponent<Rigidbody>().AddForce((transform.forward * arrowImpulse.z + transform.up * arrowImpulse.y) * percentage, ForceMode.Impulse );
+        arrow.GetComponent<Rigidbody>().AddForce((transform.forward * arrowImpulse.z + transform.up * arrowImpulse.y) * percentage, ForceMode.Impulse);
         ShowArrow(false);
         forceDuration = 0;
 
         yield return new WaitForSeconds(shootWait);
         shootRest = false;
-
     }
 
     public void ShowReticle(bool state, float duration)
@@ -192,5 +167,15 @@ public class BowScript : MonoBehaviour
         {
             centerCircle.DOFade(0, duration);
         }
+    }
+
+    public virtual void PrepareParticles()
+    {
+
+    }
+
+    public virtual void ShootParticles()
+    {
+
     }
 }
