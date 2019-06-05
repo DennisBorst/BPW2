@@ -2,41 +2,32 @@
 
 public class ParticleManager : MonoBehaviour
 {
-    [Header("Character particles")]
-    public ParticleGroup deathParticle;
-    public ParticleGroup landImpactParticle;
-    public ParticleGroup hitParticle;
-    public ParticleGroup spawnParticle;
-
-    [Space]
-    [Header("point particles")]
-    public ParticleGroup spawnPointParticle;
-    public ParticleGroup collectPointParticle;
-
-    [Space]
-    [Header("projjectile particles")]
-    public ParticleGroup projectileHit;
-    public ParticleGroup projectileSpawn;
-
     public static ParticleManager instance;
+
+    [Header("Character particles")]
+    public ParticleGroup fireHitParticle;
+    public ParticleGroup iceHitParticle;
+    public ParticleGroup forceHitParticle;
+    public ParticleGroup pierceHitParticle;
+
+    [Header("Enemy Explosions")]
+    public ParticleGroup hitParticle;
+
+
+
     void Awake()
     {
         instance = this;
 
-        //InitiatePool(deathParticle);
-        //InitiatePool(landImpactParticle);
+        InitiatePool(fireHitParticle);
+        InitiatePool(iceHitParticle);
+        InitiatePool(forceHitParticle);
+        InitiatePool(pierceHitParticle);
+
         InitiatePool(hitParticle);
-        //InitiatePool(spawnParticle);
-
-        //InitiatePool(spawnPointParticle);
-        //InitiatePool(collectPointParticle);
-
-        //InitiatePool(projectileHit);
-        //InitiatePool(projectileSpawn);
-
-
 
     }
+
     public void InitiatePool(ParticleGroup particle)
     {
         PoolManager.instance.CreatePool(particle.particlePrefab, particle.amount);

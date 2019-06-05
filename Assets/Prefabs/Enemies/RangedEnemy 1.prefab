@@ -177,7 +177,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3144881140867331779}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4.1855, y: 12.598355, z: 4.1855}
   m_Children:
@@ -185,7 +185,7 @@ RectTransform:
   - {fileID: 3144881141085591090}
   m_Father: {fileID: 3144881141042703218}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 16, y: 0}
@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 3144881141042703217}
   - component: {fileID: 3144881141042703216}
   - component: {fileID: 3144881141042703219}
+  - component: {fileID: 866058357}
   m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
@@ -339,6 +340,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &866058357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3144881141042703221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d764bc8dc6b5f974bb68b76510fbbbc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &3144881141085591093
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,7 +602,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &4770457696000327335
 BoxCollider:
@@ -619,6 +633,8 @@ MonoBehaviour:
   hpBar: {fileID: 3144881140867331776}
   health: 7
   speed: 10
+  slowed: 0
+  frozen: {fileID: 2100000, guid: 5c304f47766a2e54fadb702f28623735, type: 2}
   timeBetweenAttacks: 2
   damage: 1
   enemyBullet: {fileID: 503331618086458812, guid: 31b96c82a7bf87541bfefaee99b6d5b0,

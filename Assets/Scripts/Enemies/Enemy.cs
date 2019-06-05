@@ -19,6 +19,11 @@ public class Enemy : MonoBehaviour
     [Header("main stats")]
     public float health;
     public float speed;
+    private float currentSpeed;
+    public bool slowed = false;
+    [SerializeField] private Material frozen;
+    private MeshRenderer normalColor;
+    private int currentSlowTime = 0;
 
     [Header("Attacking")]
     public float timeBetweenAttacks;
@@ -26,9 +31,11 @@ public class Enemy : MonoBehaviour
 
     public virtual void Start()
     {
+        currentSpeed = speed;
         objective = ObjectiveLocation.Instance.objective.transform;
         hpBar.maxValue = health;
         hpBar.value = health;
+        normalColor = GetComponentInChildren<MeshRenderer>();
     }
 
     public void DamageTaken(int damageAmount)
@@ -40,5 +47,17 @@ public class Enemy : MonoBehaviour
             //Instantiate(deathParticles, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    public void Freeze(float slowStrength, int slowDuration)
+    {
+        if(slowed == false)
+        {
+            slowed = true;
+            normalColor.material = frozen;
+            Debug.Log("SLOWED");
+            speed *= slowStrength;
+        }
+  
     }
 }

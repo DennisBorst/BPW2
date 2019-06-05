@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class BowScript : MonoBehaviour
 {
+    public Character character;
+
     [Header("Bow")]
     public Transform bowModel;
     private Vector3 bowOriginalPos, bowOriginalRot;
@@ -20,7 +22,7 @@ public class BowScript : MonoBehaviour
     [Space]
 
     [Header("Arrow")]
-    public GameObject arrowPrefab;
+    public GameObject[] arrowPrefab;
     public Transform arrowSpawnOrigin;
     public Transform arrowModel;
     private Vector3 arrowOriginalPos;
@@ -46,18 +48,23 @@ public class BowScript : MonoBehaviour
 
     [Space]
 
-    [Header("Particles")]
-    public ParticleSystem[] prepareParticles;
-    public ParticleSystem[] aimParticles;
-    public GameObject circleParticlePrefab;
-
-    [Space]
-
     [Header("Canvas")]
     public RectTransform reticle;
     public CanvasGroup reticleCanvas;
     public Image centerCircle;
     private Vector2 originalImage;
+
+    [System.Serializable]
+    public class Particles
+    {
+        [Header("Particles")]
+        public ParticleSystem[] prepareParticles;
+        public ParticleSystem[] aimParticles;
+        public GameObject circleParticlePrefab;
+    }
+
+    [SerializeField] private Particles[] particleCycle;
+    private Particles currentParticleCycle;
 
     private void Start()
     {
@@ -128,25 +135,18 @@ public class BowScript : MonoBehaviour
     public IEnumerator PrepareSequence()
     {
         canShoot = true;
-        foreach (ParticleSystem part in prepareParticles)
-        {
-            part.Play();
-        }
+        PrepareParticles(character.currentArrowSlot);
+
         while (forceDuration <= maxForceDuration)
         {
             forceDuration += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
-        foreach (ParticleSystem part in aimParticles)
-        {
-            part.Play();
-        }
+
+        AimParticles(character.currentArrowSlot);
         forceDuration = maxForceDuration;
 
         //yield return new WaitForSeconds(timeToShoot);
-
-
-        
     }
 
     public IEnumerator ShootSequence(float percentage)
@@ -163,9 +163,10 @@ public class BowScript : MonoBehaviour
         CameraZoom(camOriginalFov, camOriginalPos, bowOriginalPos, bowOriginalRot, zoomOutDuration, true);
         arrowModel.transform.localPosition = arrowOriginalPos;
 
-        Instantiate(circleParticlePrefab, arrowSpawnOrigin.position, Quaternion.identity);
+        ShootParticles(character.currentArrowSlot);
+        //Instantiate(currentParticleCycle.circleParticlePrefab, arrowSpawnOrigin.position, Quaternion.identity);
 
-        GameObject arrow = Instantiate(arrowPrefab, arrowSpawnOrigin.position, bowModel.rotation);
+        GameObject arrow = Instantiate(arrowPrefab[character.currentArrowSlot], arrowSpawnOrigin.position, bowModel.rotation);
         
         arrow.GetComponent<Rigidbody>().AddForce((transform.forward * arrowImpulse.z + transform.up * arrowImpulse.y) * percentage, ForceMode.Impulse );
         ShowArrow(false);
@@ -193,4 +194,96 @@ public class BowScript : MonoBehaviour
             centerCircle.DOFade(0, duration);
         }
     }
+
+    #region Particles
+    void PrepareParticles(int arrowType)
+    {
+        currentParticleCycle = particleCycle[arrowType];
+
+        if (arrowType == 0)
+        {
+            foreach (ParticleSystem part in currentParticleCycle.prepareParticles)
+            {
+                part.Play();
+            }
+        }
+        else if (arrowType == 1)
+        {
+            foreach (ParticleSystem part in currentParticleCycle.prepareParticles)
+            {
+                part.Play();
+            }
+        }
+        else if (arrowType == 2)
+        {
+            foreach (ParticleSystem part in currentParticleCycle.prepareParticles)
+            {
+                part.Play();
+            }
+        }
+        else if (arrowType == 3)
+        {
+            foreach (ParticleSystem part in currentParticleCycle.prepareParticles)
+            {
+                part.Play();
+            }
+        }
+    }
+
+    public void AimParticles(int arrowType)
+    {
+        currentParticleCycle = particleCycle[arrowType];
+
+        if (arrowType == 0)
+        {
+            foreach (ParticleSystem part in currentParticleCycle.aimParticles)
+            {
+                part.Play();
+            }
+        }
+        else if (arrowType == 1)
+        {
+            foreach (ParticleSystem part in currentParticleCycle.aimParticles)
+            {
+                part.Play();
+            }
+        }
+        else if (arrowType == 2)
+        {
+            foreach (ParticleSystem part in currentParticleCycle.aimParticles)
+            {
+                part.Play();
+            }
+        }
+        else if (arrowType == 3)
+        {
+            foreach (ParticleSystem part in currentParticleCycle.aimParticles)
+            {
+                part.Play();
+            }
+        }
+    }
+
+    void ShootParticles(int arrowType)
+    {
+        currentParticleCycle = particleCycle[arrowType];
+
+        if (arrowType == 0)
+        {
+            Instantiate(currentParticleCycle.circleParticlePrefab, arrowSpawnOrigin.position, Quaternion.identity);
+        }
+        else if (arrowType == 1)
+        {
+            Instantiate(currentParticleCycle.circleParticlePrefab, arrowSpawnOrigin.position, Quaternion.identity);
+        }
+        else if (arrowType == 2)
+        {
+            Instantiate(currentParticleCycle.circleParticlePrefab, arrowSpawnOrigin.position, Quaternion.identity);
+        }
+        else if (arrowType == 3)
+        {
+            Instantiate(currentParticleCycle.circleParticlePrefab, arrowSpawnOrigin.position, Quaternion.identity);
+        }
+    }
+    #endregion
 }

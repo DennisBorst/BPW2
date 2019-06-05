@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour
 
         if (collision.tag == "Projectiles")
         {
-            ParticleManager.instance.SpawnParticle(ParticleManager.instance.hitParticle, transform.position, transform.rotation);
+            ParticleManager.instance.SpawnParticle(ParticleManager.instance.fireHitParticle, transform.position, transform.rotation);
             DestroyProjectile();
         }  
     }

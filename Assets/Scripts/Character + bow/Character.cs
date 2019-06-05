@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
 
     [Header("UI arrows")]
     public Image[] selectArrow;
-    [SerializeField] private int currentArrowSlot;
+    public int currentArrowSlot;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +30,8 @@ public class Character : MonoBehaviour
 
         cam = Camera.main;
         controller = this.GetComponent<CharacterController>();
+
+        selectArrow[currentArrowSlot].color = Color.green;
     }
 
     // Update is called once per frame
@@ -74,22 +76,7 @@ public class Character : MonoBehaviour
 
         if(inputScroll > 0.1f)
         {
-            if(currentArrowSlot < selectArrow.Length - 1)
-            {
-                currentArrowSlot += 1;
-                selectArrow[currentArrowSlot].color = Color.green;
-                selectArrow[currentArrowSlot - 1].color = Color.white;
-            }
-            else
-            {
-                currentArrowSlot = 0;
-                selectArrow[currentArrowSlot].color = Color.green;
-                selectArrow[currentArrowSlot + (selectArrow.Length - 1)].color = Color.white;
-            }  
-        }
-        else if(inputScroll < -0.1f)
-        {
-            if(currentArrowSlot >= 1)
+            if (currentArrowSlot >= 1)
             {
                 currentArrowSlot -= 1;
                 selectArrow[currentArrowSlot].color = Color.green;
@@ -102,11 +89,21 @@ public class Character : MonoBehaviour
                 selectArrow[currentArrowSlot - (selectArrow.Length - 1)].color = Color.white;
             }
         }
-
-        
-
-        Debug.Log("scrollInput " + inputScroll);
-        Debug.Log("currentArrowSlot " + currentArrowSlot);
+        else if(inputScroll < -0.1f)
+        {
+            if (currentArrowSlot < selectArrow.Length - 1)
+            {
+                currentArrowSlot += 1;
+                selectArrow[currentArrowSlot].color = Color.green;
+                selectArrow[currentArrowSlot - 1].color = Color.white;
+            }
+            else
+            {
+                currentArrowSlot = 0;
+                selectArrow[currentArrowSlot].color = Color.green;
+                selectArrow[currentArrowSlot + (selectArrow.Length - 1)].color = Color.white;
+            }
+        }
     }
 
     float ClampAngle(float angle, float from, float to)

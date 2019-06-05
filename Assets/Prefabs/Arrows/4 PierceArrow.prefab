@@ -4712,8 +4712,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4ecf08ce2cf71c5479739c0e30cd2ece, type: 2}
-  - {fileID: 2100000, guid: 9af9c71bca862e64eb7665fb1cbef54e, type: 2}
+  - {fileID: 2100000, guid: c646ca2767dce0f4593bcfecc802873a, type: 2}
+  - {fileID: 2100000, guid: aca13cd3164b2db4cb182c9b4da0c493, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4877,12 +4877,11 @@ GameObject:
   - component: {fileID: 6799395210394623281}
   - component: {fileID: 2032422945725175045}
   - component: {fileID: 2144390527795218574}
-  - component: {fileID: 8468236496121770796}
   - component: {fileID: 7787045204619403681}
   - component: {fileID: 3607071474421689012}
-  - component: {fileID: 2037147208273650165}
+  - component: {fileID: 468380259036263493}
   m_Layer: 0
-  m_Name: ArrowDebug
+  m_Name: 4 PierceArrow
   m_TagString: Projectiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4958,24 +4957,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4782664707788757587}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.15, y: 0.15, z: 1}
   m_Center: {x: 0, y: 0, z: 0.1}
---- !u!135 &8468236496121770796
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4782664707788757587}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 3
-  m_Center: {x: 0, y: 0, z: 0.25}
 --- !u!54 &7787045204619403681
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5052,32 +5038,32 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 0}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
+      key1: {r: 0.9870182, g: 0.7647059, b: 1, a: 1}
+      key2: {r: 0.7724138, g: 0, b: 0.9411765, a: 0}
+      key3: {r: 0.30593625, g: 0, b: 0.43921566, a: 0}
+      key4: {r: 0.06666667, g: 0.06666667, b: 0.06666667, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
+      ctime1: 5236
+      ctime2: 13901
+      ctime3: 37371
+      ctime4: 52428
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime0: 13107
+      atime1: 39321
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumColorKeys: 5
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
@@ -5087,7 +5073,7 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &2037147208273650165
+--- !u!114 &468380259036263493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5096,13 +5082,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4782664707788757587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761f1d8616a26ed44a711ca6efd1310c, type: 3}
+  m_Script: {fileID: 11500000, guid: 741d873a16ffce745b6ec02adce7dd42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  rb: {fileID: 7787045204619403681}
-  explosionCollider: {fileID: 8468236496121770796}
-  explosionTime: 0.5
   trailParticle: {fileID: 7734495622292050877}
 --- !u!1 &8373412532050914599
 GameObject:
@@ -9835,8 +9818,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4ab9cac5a805cfc419126a5d0495486d, type: 2}
-  - {fileID: 2100000, guid: 4ab9cac5a805cfc419126a5d0495486d, type: 2}
+  - {fileID: 2100000, guid: 1aa3c0736b0b0c84eb74d45b4351056a, type: 2}
+  - {fileID: 2100000, guid: 1aa3c0736b0b0c84eb74d45b4351056a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

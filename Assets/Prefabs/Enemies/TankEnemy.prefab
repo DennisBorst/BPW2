@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 126950939}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.5, y: 1.5, z: 0}
-  m_LocalScale: {x: 0.3, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.2, y: 2.2, z: 1.7}
   m_Children: []
   m_Father: {fileID: 1947320470}
   m_RootOrder: 0
@@ -119,7 +119,7 @@ Transform:
   m_GameObject: {fileID: 515990593}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.5, y: 1.5, z: 0}
-  m_LocalScale: {x: 0.3, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.2, y: 2.2, z: 1.7}
   m_Children: []
   m_Father: {fileID: 1947320470}
   m_RootOrder: 1
@@ -210,7 +210,7 @@ Transform:
   m_GameObject: {fileID: 1339138281}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1.5, z: 1.5}
-  m_LocalScale: {x: 0.3, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.2, y: 2.2, z: 1.7}
   m_Children: []
   m_Father: {fileID: 1947320470}
   m_RootOrder: 2
@@ -301,7 +301,7 @@ Transform:
   m_GameObject: {fileID: 1438447320}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 1.5, z: -1.5}
-  m_LocalScale: {x: 0.3, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.2, y: 2.2, z: 1.7}
   m_Children: []
   m_Father: {fileID: 1947320470}
   m_RootOrder: 3
@@ -388,7 +388,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947320469}
-  m_LocalRotation: {x: -0, y: 0.08715574, z: -0, w: 0.9961947}
+  m_LocalRotation: {x: -0, y: 0.76844317, z: -0, w: 0.639918}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -832,7 +832,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &8920714647586936211
 BoxCollider:
@@ -863,6 +863,8 @@ MonoBehaviour:
   hpBar: {fileID: 4396991079530701242}
   health: 12
   speed: 3
+  slowed: 0
+  frozen: {fileID: 2100000, guid: 5c304f47766a2e54fadb702f28623735, type: 2}
   timeBetweenAttacks: 3
   damage: 1
   stopDistance: 3

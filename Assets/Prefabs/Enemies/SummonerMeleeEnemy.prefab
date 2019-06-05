@@ -80,6 +80,8 @@ MonoBehaviour:
   hpBar: {fileID: 6730732300184834714}
   health: 3
   speed: 5
+  slowed: 0
+  frozen: {fileID: 2100000, guid: 5c304f47766a2e54fadb702f28623735, type: 2}
   timeBetweenAttacks: 5
   damage: 1
   stopDistance: 3
@@ -322,6 +324,7 @@ GameObject:
   - component: {fileID: 358607607569023315}
   - component: {fileID: 4546526996543073107}
   - component: {fileID: 3080309282948285924}
+  - component: {fileID: 1324673978418203297}
   m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
@@ -409,6 +412,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1324673978418203297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7528004409385574909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d764bc8dc6b5f974bb68b76510fbbbc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &8055929566515851386
 GameObject:
   m_ObjectHideFlags: 0
