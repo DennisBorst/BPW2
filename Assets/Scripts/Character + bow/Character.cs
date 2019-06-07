@@ -10,98 +10,97 @@ public class Character : MonoBehaviour
 
     [Range(1,10)]
     public float sensitivity;
-
+    public float inputScroll;
+    /*
     private float InputX;
     private float InputZ;
-    public float inputScroll;
+    
     public Vector3 desiredMoveDirection;
     public float speed;
     public Camera cam;
     public CharacterController controller;
+    */
+
+    private BowScript bowScript;
 
     [Header("UI arrows")]
     public Image[] selectArrow;
     public int currentArrowSlot;
+    private int previousArrowSlot;
+
+    [SerializeField] private Material[] newMaterial;
+    [SerializeField] private GameObject[] arrows;
+    private MeshRenderer normalColor;
+    private Material explosion;
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
 
-        cam = Camera.main;
-        controller = this.GetComponent<CharacterController>();
+        //cam = Camera.main;
+        //controller = this.GetComponent<CharacterController>();
+        bowScript = this.GetComponent<BowScript>();
 
         selectArrow[currentArrowSlot].color = Color.green;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         MoveAndRotate();
-        ScrollWheel();
+        ArrowTypeInput();
     }
 
     void MoveAndRotate()
     {
         //rotating
-        float mousex = Input.GetAxis("Mouse X");
         float mousey = Input.GetAxis("Mouse Y");
 
-        transform.eulerAngles += new Vector3(-mousey * sensitivity, mousex * sensitivity, 0);
+        transform.eulerAngles += new Vector3(-mousey * sensitivity, 0, 0);
 
         transform.eulerAngles = new Vector3(ClampAngle(transform.eulerAngles.x, rotationLimit.x, rotationLimit.y),
         transform.eulerAngles.y, transform.eulerAngles.z);
-
-        //moving
-        InputX = Input.GetAxis("Horizontal");
-        InputZ = Input.GetAxis("Vertical");
-
-        var camera = Camera.main;
-        var forward = cam.transform.forward;
-        var right = cam.transform.right;
-
-        forward.y = 0f;
-        right.y = 0f;
-
-        forward.Normalize();
-        right.Normalize();
-
-        desiredMoveDirection = forward * InputZ + right * InputX;
-        controller.Move(desiredMoveDirection * Time.deltaTime * speed);
     }
 
-    void ScrollWheel()
+    void ArrowTypeInput()
     {
-        inputScroll = Input.GetAxis("Mouse ScrollWheel");
+        if(bowScript.isAiming != true)
+        {
+            selectArrow[previousArrowSlot].color = Color.white;
 
-        if(inputScroll > 0.1f)
-        {
-            if (currentArrowSlot >= 1)
+            if (Input.GetKeyDown(KeyCode.Alpha1)) { currentArrowSlot = 0; }
+            if (Input.GetKeyDown(KeyCode.Alpha2)) { currentArrowSlot = 1; }
+            if (Input.GetKeyDown(KeyCode.Alpha3)) { currentArrowSlot = 2; }
+            if (Input.GetKeyDown(KeyCode.Alpha4)) { currentArrowSlot = 3; }
+
+            inputScroll = Input.GetAxis("Mouse ScrollWheel");
+
+            if (inputScroll > 0.1f)
             {
-                currentArrowSlot -= 1;
-                selectArrow[currentArrowSlot].color = Color.green;
-                selectArrow[currentArrowSlot + 1].color = Color.white;
+                if (currentArrowSlot >= 1)
+                {
+                    currentArrowSlot -= 1;
+                }
+                else { currentArrowSlot = 3; }
             }
-            else
+            else if (inputScroll < -0.1f)
             {
-                currentArrowSlot = 3;
-                selectArrow[currentArrowSlot].color = Color.green;
-                selectArrow[currentArrowSlot - (selectArrow.Length - 1)].color = Color.white;
+                if (currentArrowSlot < selectArrow.Length - 1)
+                {
+                    currentArrowSlot += 1;
+                }
+                else { currentArrowSlot = 0; }
             }
-        }
-        else if(inputScroll < -0.1f)
-        {
-            if (currentArrowSlot < selectArrow.Length - 1)
+
+            previousArrowSlot = currentArrowSlot;
+            selectArrow[currentArrowSlot].color = Color.green;
+
+            for (int i = 0; i < arrows.Length; i++)
             {
-                currentArrowSlot += 1;
-                selectArrow[currentArrowSlot].color = Color.green;
-                selectArrow[currentArrowSlot - 1].color = Color.white;
-            }
-            else
-            {
-                currentArrowSlot = 0;
-                selectArrow[currentArrowSlot].color = Color.green;
-                selectArrow[currentArrowSlot + (selectArrow.Length - 1)].color = Color.white;
+                normalColor = arrows[i].GetComponent<MeshRenderer>();
+                normalColor.material = newMaterial[currentArrowSlot];
             }
         }
     }

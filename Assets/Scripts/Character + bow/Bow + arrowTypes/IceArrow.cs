@@ -9,7 +9,7 @@ public class IceArrow : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SphereCollider iceCollider;
     [SerializeField] private float iceAreaTime;
-    [SerializeField] private int slowDuration;
+    [SerializeField] private float slowDuration;
     [Range(1, 0)]
     [SerializeField] private float slowStrength;
 
@@ -66,7 +66,7 @@ public class IceArrow : MonoBehaviour
         {
             if (other.gameObject.tag == "Enemy")
             {
-                other.gameObject.GetComponent<Enemy>().Freeze(slowStrength, slowDuration);
+                other.gameObject.GetComponent<Enemy>().StartFreeze(slowStrength, slowDuration);
             }
         }
     }
@@ -77,5 +77,6 @@ public class IceArrow : MonoBehaviour
         yield return new WaitForSeconds(iceAreaTime);
         iceCollider.enabled = false;
         Destroy(gameObject);
+        //yield return null;
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class TankEnemy : Enemy
 {
-    [SerializeField] private float stopDistance;
-    [SerializeField] private float attackTime;
+
+    private float attackTime;
 
     [Space]
 
@@ -24,10 +24,15 @@ public class TankEnemy : Enemy
     }
     */
 
-    private void Update()
+    public override void Update()
     {
-        currentShieldCooldown += (1f/60f);
-        CloseDistance();
+        base.Update();
+
+        if (slowed == false)
+        {
+            currentShieldCooldown += (1f / 60f);
+            CloseDistance();
+        }
     }
 
     void CloseDistance()

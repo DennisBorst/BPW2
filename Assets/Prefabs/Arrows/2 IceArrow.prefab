@@ -5102,8 +5102,8 @@ MonoBehaviour:
   damage: 5
   rb: {fileID: 7787045204619403681}
   iceCollider: {fileID: 8468236496121770796}
-  iceAreaTime: 1
-  slowDuration: 180
+  iceAreaTime: 0.2
+  slowDuration: 3
   slowStrength: 0
   trailParticle: {fileID: 7734495622292050877}
 --- !u!1 &8373412532050914599

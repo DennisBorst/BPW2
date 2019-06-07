@@ -33,6 +33,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        Debug.Log("Colliding");
         if (collision.tag == "Objective")
         {
             ParticleManager.instance.SpawnParticle(ParticleManager.instance.hitParticle, transform.position, transform.rotation);
@@ -44,6 +45,7 @@ public class Projectile : MonoBehaviour
         {
             ParticleManager.instance.SpawnParticle(ParticleManager.instance.fireHitParticle, transform.position, transform.rotation);
             DestroyProjectile();
-        }  
+        }
+        Debug.Log(collision.gameObject.tag);
     }
 }

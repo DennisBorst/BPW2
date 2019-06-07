@@ -81,6 +81,7 @@ MonoBehaviour:
   health: 3
   speed: 5
   slowed: 0
+  defaultMaterial: {fileID: 2100000, guid: 02185fc88d99b1646805cbba117e70c2, type: 2}
   frozen: {fileID: 2100000, guid: 5c304f47766a2e54fadb702f28623735, type: 2}
   timeBetweenAttacks: 5
   damage: 1

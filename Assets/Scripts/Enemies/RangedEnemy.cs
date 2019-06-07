@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class RangedEnemy : Enemy
 {
+
+    [Header("Ranged")]
     public GameObject enemyBullet;
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private float stopDistance;
-    [SerializeField] private float attackTime;
+    private float attackTime;
 
-    private void Update()
+    public override void Update()
     {
-        CloseDistance();
+        base.Update();
+
+        if (slowed == false)
+        {
+            CloseDistance();
+        }
     }
 
     void CloseDistance()
@@ -24,8 +30,6 @@ public class RangedEnemy : Enemy
             {
                 if (Time.time >= attackTime)
                 {
-                    //StartCoroutine(Attack());
-                    //objective.GetComponent<Objective>().DamageTaken(damage);
                     RangedAttack();
                     attackTime = Time.time + timeBetweenAttacks;
                 }

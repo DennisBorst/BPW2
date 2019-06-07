@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class SummonerEnemy : Enemy
 {
-    [SerializeField] private float stopDistance;
-    [SerializeField] private float summonTime;
 
     [Space]
+    [Header("Summon")]
     public GameObject summonEnemy;
+    private float summonTime;
 
-    private void Update()
+    public override void Update()
     {
-        CloseDistance();
+        base.Update();
+
+        if (slowed == false)
+        {
+            CloseDistance();
+        }
     }
 
     void CloseDistance()

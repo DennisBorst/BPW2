@@ -19,23 +19,35 @@ public class Enemy : MonoBehaviour
     [Header("main stats")]
     public float health;
     public float speed;
-    private float currentSpeed;
+    private float defaultSpeed;
+    public float stopDistance;
+
+    [Header("Frozen Info")]
     public bool slowed = false;
+    [SerializeField] private Material defaultMaterial;
     [SerializeField] private Material frozen;
     private MeshRenderer normalColor;
-    private int currentSlowTime = 0;
+    Coroutine freezeRoutine;
 
     [Header("Attacking")]
     public float timeBetweenAttacks;
     public int damage;
+    
 
     public virtual void Start()
     {
-        currentSpeed = speed;
         objective = ObjectiveLocation.Instance.objective.transform;
         hpBar.maxValue = health;
         hpBar.value = health;
+
+        //Freeze
+        defaultSpeed = speed;
         normalColor = GetComponentInChildren<MeshRenderer>();
+    }
+
+    public virtual void Update()
+    {
+        gameObject.transform.LookAt(objective);
     }
 
     public void DamageTaken(int damageAmount)
@@ -49,15 +61,21 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Freeze(float slowStrength, int slowDuration)
+    public void StartFreeze(float slowStrength, float slowDuration)
     {
-        if(slowed == false)
-        {
-            slowed = true;
-            normalColor.material = frozen;
-            Debug.Log("SLOWED");
-            speed *= slowStrength;
-        }
-  
+        if (freezeRoutine != null) StopCoroutine(freezeRoutine);
+        freezeRoutine = StartCoroutine(IFreeze(slowStrength, slowDuration));
+    }
+
+    IEnumerator IFreeze(float slowStrength, float slowDuration)
+    {
+        slowed = true;
+        normalColor.material = frozen;
+        Debug.Log("SLOWED");
+        speed *= slowStrength;
+        yield return new WaitForSeconds(slowDuration);
+        normalColor.material = defaultMaterial;
+        speed = defaultSpeed;
+        slowed = false;
     }
 }

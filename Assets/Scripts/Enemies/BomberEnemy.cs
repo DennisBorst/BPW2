@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class BomberEnemy : Enemy
 {
-    [SerializeField] private float stopDistance;
 
-    private void Update()
+    public override void Update()
     {
-        CloseDistance();
+        base.Update();
+
+        if (slowed == false)
+        {
+            CloseDistance();
+        }
     }
 
     void CloseDistance()

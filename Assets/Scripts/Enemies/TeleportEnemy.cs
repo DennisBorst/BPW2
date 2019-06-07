@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class TeleportEnemy : Enemy
 {
-    [SerializeField] private float stopDistance;
-    [SerializeField] private float attackTime;
+
+    private float attackTime;
 
     [Header("Bullet")]
     public GameObject enemyBullet;
@@ -31,11 +31,16 @@ public class TeleportEnemy : Enemy
 
     Vector3 pos;
 
-    private void Update()
+    public override void Update()
     {
-        currentTeleportCooldown += (1f / 60f);
-        CloseDistance();
-        RandomPos();
+        base.Update();
+
+        if (slowed == false)
+        {
+            currentTeleportCooldown += (1f / 60f);
+            CloseDistance();
+            RandomPos();
+        }
     }
 
     void CloseDistance()

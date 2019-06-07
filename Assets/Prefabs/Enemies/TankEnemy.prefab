@@ -863,12 +863,12 @@ MonoBehaviour:
   hpBar: {fileID: 4396991079530701242}
   health: 12
   speed: 3
+  stopDistance: 3
   slowed: 0
+  defaultMaterial: {fileID: 2100000, guid: 02185fc88d99b1646805cbba117e70c2, type: 2}
   frozen: {fileID: 2100000, guid: 5c304f47766a2e54fadb702f28623735, type: 2}
   timeBetweenAttacks: 3
   damage: 1
-  stopDistance: 3
-  attackTime: 2
   shieldObject: {fileID: 1947320469}
   shieldUpTime: 4
   shieldCooldown: 2

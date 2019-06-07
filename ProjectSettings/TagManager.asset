@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Projectiles
   - EnemyShield
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX

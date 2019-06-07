@@ -79,11 +79,12 @@ MonoBehaviour:
   hpBar: {fileID: 5013285167414697437}
   health: 3
   speed: 12
+  stopDistance: 2.5
   slowed: 0
+  defaultMaterial: {fileID: 2100000, guid: 02185fc88d99b1646805cbba117e70c2, type: 2}
   frozen: {fileID: 2100000, guid: 5c304f47766a2e54fadb702f28623735, type: 2}
   timeBetweenAttacks: 0
   damage: 5
-  stopDistance: 2.5
 --- !u!1 &5013285166528058922
 GameObject:
   m_ObjectHideFlags: 0
