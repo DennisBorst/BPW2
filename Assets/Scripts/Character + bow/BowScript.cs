@@ -66,6 +66,9 @@ public class BowScript : MonoBehaviour
     [SerializeField] private Particles[] particleCycle;
     private Particles currentParticleCycle;
 
+    [Header("Music")]
+    [SerializeField] private AudioSource source;
+
     private void Start()
     {
         camOriginalPos = Camera.main.transform.localPosition;
@@ -103,6 +106,7 @@ public class BowScript : MonoBehaviour
                 arrowModel.transform.localPosition = arrowOriginalPos;
                 arrowModel.DOLocalMoveZ(arrowModel.transform.localPosition.z - .10f, zoomInDuration * 2f);
                 CameraZoom(camZoomFov, camOriginalPos + camZoomOffset, bow.localPosition, bow.localEulerAngles, zoomInDuration, true);
+                source.Play();
             }
         }
 

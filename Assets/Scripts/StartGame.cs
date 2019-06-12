@@ -28,6 +28,7 @@ public class StartGame : MonoBehaviour
                 anim.enabled = true;
                 spawner.SetActive(true);
                 Destroy(pressText);
+                Destroy(gameObject);
             }
         }
     }

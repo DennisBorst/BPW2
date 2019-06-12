@@ -31,6 +31,7 @@ public class TankEnemy : Enemy
         if (slowed == false)
         {
             currentShieldCooldown += (1f / 60f);
+            CheckDistance();
             CloseDistance();
         }
     }
@@ -60,6 +61,11 @@ public class TankEnemy : Enemy
                 //shieldCooldown = currentShieldCooldown;
             }
         }
+    }
+
+    public override void CheckDistance()
+    {
+        base.CheckDistance();
     }
 
     IEnumerator Shield()

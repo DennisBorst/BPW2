@@ -12,6 +12,7 @@ public class BomberEnemy : Enemy
 
         if (slowed == false)
         {
+            CheckDistance();
             CloseDistance();
         }
     }
@@ -29,5 +30,10 @@ public class BomberEnemy : Enemy
                 Destroy(gameObject);
             }
         }
+    }
+
+    public override void CheckDistance()
+    {
+        base.CheckDistance();
     }
 }

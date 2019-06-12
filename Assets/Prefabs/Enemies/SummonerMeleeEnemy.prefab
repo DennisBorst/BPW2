@@ -80,13 +80,18 @@ MonoBehaviour:
   hpBar: {fileID: 6730732300184834714}
   health: 3
   speed: 5
+  stopDistance: 3
+  destinationReached: 0
+  maxDistanceRaycast: 0.6
+  mask:
+    serializedVersion: 2
+    m_Bits: 16384
   slowed: 0
-  defaultMaterial: {fileID: 2100000, guid: 02185fc88d99b1646805cbba117e70c2, type: 2}
-  frozen: {fileID: 2100000, guid: 5c304f47766a2e54fadb702f28623735, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 1ce6b61d457258b46afe2082f062f0f5, type: 2}
+  frozen: {fileID: 2100000, guid: 256b4ba0964eeb14985db1b0909f2056, type: 2}
+  paralyzed: {fileID: 2100000, guid: c35096ab6e8e99e4f8a163d087a71b20, type: 2}
   timeBetweenAttacks: 5
   damage: 1
-  stopDistance: 3
-  attackTime: 5
 --- !u!1 &4718010793972383245
 GameObject:
   m_ObjectHideFlags: 0

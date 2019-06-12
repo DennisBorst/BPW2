@@ -4879,7 +4879,7 @@ GameObject:
   - component: {fileID: 2144390527795218574}
   - component: {fileID: 7787045204619403681}
   - component: {fileID: 3607071474421689012}
-  - component: {fileID: 5904186271884918226}
+  - component: {fileID: 6840052673534139889}
   m_Layer: 0
   m_Name: 3 ForceArrow
   m_TagString: Projectiles
@@ -5073,7 +5073,7 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &5904186271884918226
+--- !u!114 &6840052673534139889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5082,11 +5082,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4782664707788757587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a0abcadbfa5e3c49a3da0bb9a6b1a88, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ce04aee1e3f8014e97218a28097a355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
-  force: 100
+  damage: 5
+  rb: {fileID: 7787045204619403681}
+  iceArrow: 0
+  iceCollider: {fileID: 0}
+  iceAreaTime: 0
+  slowDuration: 3
+  slowStrength: 0
+  paralyzedMovement: 10
   trailParticle: {fileID: 7734495622292050877}
 --- !u!1 &8373412532050914599
 GameObject:

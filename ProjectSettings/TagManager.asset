@@ -22,10 +22,10 @@ TagManager:
   - PostProcessing
   - Player
   - Enemy
-  - 
-  - 
-  - 
-  - 
+  - ForceField
+  - ForceField2
+  - IgnoreLight
+  - Objective
   - 
   - 
   - 

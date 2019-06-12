@@ -5101,6 +5101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   rb: {fileID: 7787045204619403681}
+  iceArrow: 1
   iceCollider: {fileID: 8468236496121770796}
   iceAreaTime: 0.2
   slowDuration: 3

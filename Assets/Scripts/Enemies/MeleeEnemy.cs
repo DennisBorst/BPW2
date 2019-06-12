@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MeleeEnemy : Enemy
 {
-
     private float attackTime;
 
     public override void Update()
@@ -13,6 +12,7 @@ public class MeleeEnemy : Enemy
         base.Update();
         if(slowed == false)
         {
+            CheckDistance();
             CloseDistance();
         }
     }
@@ -21,8 +21,11 @@ public class MeleeEnemy : Enemy
     {
         if (objective != null)
         {
-            if (Vector3.Distance(transform.position, objective.position) > stopDistance)
-                transform.position = Vector3.MoveTowards(transform.position, objective.position, speed * Time.deltaTime);
+            if (!destinationReached)
+            {
+                if (Vector3.Distance(transform.position, objective.position) > stopDistance)
+                    transform.position = Vector3.MoveTowards(transform.position, objective.position, speed * Time.deltaTime);
+            }
             else
             {
                 if (Time.time >= attackTime)
@@ -32,6 +35,11 @@ public class MeleeEnemy : Enemy
                 }
             }
         }
+    }
+
+    public override void CheckDistance()
+    {
+        base.CheckDistance();
     }
 }
 

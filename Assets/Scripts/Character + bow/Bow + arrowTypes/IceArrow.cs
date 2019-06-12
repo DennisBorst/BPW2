@@ -7,23 +7,17 @@ public class IceArrow : MonoBehaviour
 {
     public int damage;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private bool iceArrow;
     [SerializeField] private SphereCollider iceCollider;
     [SerializeField] private float iceAreaTime;
     [SerializeField] private float slowDuration;
     [Range(1, 0)]
     [SerializeField] private float slowStrength;
+    [SerializeField] private float paralyzedMovement;
 
     [Header("Particles")]
     //public GameObject hitParticle;
     public ParticleSystem trailParticle;
-
-    private void Update()
-    {
-        if (iceCollider.enabled == true)
-        {
-
-        }
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -40,18 +34,30 @@ public class IceArrow : MonoBehaviour
                 //Destroy(gameObject);
             }
 
-            
             rb.isKinematic = true;
             rb.useGravity = false;
 
-            ParticleManager.instance.SpawnParticle(ParticleManager.instance.iceHitParticle, transform.position, transform.rotation);
+            if (iceArrow)
+            {
+                StartCoroutine(IceArea());
+                ParticleManager.instance.SpawnParticle(ParticleManager.instance.iceHitParticle, transform.position, transform.rotation);
+            }
+            else
+            {
+                if (collision.gameObject.tag == "Enemy")
+                {
+                    collision.gameObject.GetComponent<Enemy>().StartFreeze(slowStrength, slowDuration, iceArrow, paralyzedMovement);
+                }
+                ParticleManager.instance.SpawnParticle(ParticleManager.instance.forceHitParticle, transform.position, transform.rotation);
+                Destroy(gameObject);
+            }
+
             trailParticle.transform.parent = transform.parent;
             trailParticle.Stop();
 
             Camera.main.transform.DOComplete();
             Camera.main.transform.DOShakePosition(.4f, .5f, 20, 90, false, true);
-
-            StartCoroutine(IceArea());
+            
             Destroy(trailParticle.gameObject);
         }
     }
@@ -66,7 +72,7 @@ public class IceArrow : MonoBehaviour
         {
             if (other.gameObject.tag == "Enemy")
             {
-                other.gameObject.GetComponent<Enemy>().StartFreeze(slowStrength, slowDuration);
+                other.gameObject.GetComponent<Enemy>().StartFreeze(slowStrength, slowDuration, iceArrow, paralyzedMovement);
             }
         }
     }
@@ -77,6 +83,5 @@ public class IceArrow : MonoBehaviour
         yield return new WaitForSeconds(iceAreaTime);
         iceCollider.enabled = false;
         Destroy(gameObject);
-        //yield return null;
     }
 }

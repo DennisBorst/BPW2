@@ -8,11 +8,13 @@ public class PausedMenu : MonoBehaviour
     public GameObject ui;
     private Character character;
     private BowScript bow;
+    private Moving moving;
 
     private void Start()
     {
         character = FindObjectOfType<Character>();
         bow = FindObjectOfType<BowScript>();
+        moving = FindObjectOfType<Moving>();
     }
 
     void Update()
@@ -37,6 +39,7 @@ public class PausedMenu : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0f;
+                moving.enabled = false;
                 character.enabled = false;
                 bow.enabled = false;
             }
@@ -44,6 +47,7 @@ public class PausedMenu : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1f;
+                moving.enabled = true;
                 character.enabled = true;
                 bow.enabled = true;
             }

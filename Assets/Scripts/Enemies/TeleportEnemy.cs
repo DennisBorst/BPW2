@@ -22,10 +22,32 @@ public class TeleportEnemy : Enemy
     private bool teleportAvailable = false;
 
     /*
+    [SerializeField] AI_State currentState;
+
     public enum AI_State
     {
         walking,
-        shielding,
+        shooting,
+        teleporting
+    }
+
+    
+    void SwitchState()
+    {
+        switch (currentState)
+        {
+            case AI_State.walking:
+                CloseDistance();
+                break;
+
+            case AI_State.shooting:
+                RangedAttack();
+                break;
+
+            case AI_State.teleporting:
+                Teleport();
+                break;
+        }
     }
     */
 
@@ -39,7 +61,6 @@ public class TeleportEnemy : Enemy
         {
             currentTeleportCooldown += (1f / 60f);
             CloseDistance();
-            RandomPos();
         }
     }
 
@@ -76,18 +97,17 @@ public class TeleportEnemy : Enemy
     {
         if (objective != null)
         {
-            Instantiate(enemyBullet, shootPoint.position, transform.rotation);
+            Vector3 throwingStar = new Vector3(transform.rotation.x + 90, transform.rotation.y, transform.rotation.z);
+            Instantiate(enemyBullet, shootPoint.position, enemyBullet.transform.rotation);
         }
     }
 
     void Teleport()
     {
+        pos = new Vector3(
+            Random.Range(objective.position.x - stopDistance - objectiveSize, objective.position.x + stopDistance + objectiveSize), 0,
+            Random.Range(-objective.position.z - stopDistance - objectiveSize, objective.position.z + stopDistance + objectiveSize));
         transform.position = pos;
         teleportAvailable = true;
-    }
-
-    void RandomPos()
-    {
-        pos = new Vector3(Random.Range(objective.position.x - stopDistance - objectiveSize , objective.position.x + stopDistance + objectiveSize), 0, Random.Range(-objective.position.z - stopDistance - objectiveSize, objective.position.z + stopDistance + objectiveSize));
     }
 }
