@@ -12,7 +12,12 @@ public class ParticleManager : MonoBehaviour
 
     [Header("Enemy Explosions")]
     public ParticleGroup hitParticle;
+    public ParticleGroup deathParticles;
+    public ParticleGroup smokeParticles;
 
+    [Header("General")]
+    public ParticleGroup startRingParticle;
+    public ParticleGroup deathBusParticle;
 
 
     void Awake()
@@ -25,7 +30,11 @@ public class ParticleManager : MonoBehaviour
         InitiatePool(pierceHitParticle);
 
         InitiatePool(hitParticle);
+        InitiatePool(deathParticles);
+        InitiatePool(smokeParticles);
 
+        InitiatePool(startRingParticle);
+        InitiatePool(deathBusParticle);
     }
 
     public void InitiatePool(ParticleGroup particle)

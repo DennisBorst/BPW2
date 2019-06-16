@@ -9,6 +9,7 @@ public class StartGame : MonoBehaviour
     [SerializeField] private GameObject pressText;
     [SerializeField] private GameObject spawner;
     [SerializeField] private Animator anim;
+    private bool isColliding = false;
 
 
     private void Start()
@@ -17,9 +18,9 @@ public class StartGame : MonoBehaviour
         spawner.SetActive(false);
     }
 
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        if (other.tag == "Player")
+        if (isColliding)
         {
             pressText.SetActive(true);
 
@@ -31,13 +32,25 @@ public class StartGame : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        else if (!isColliding)
+        {
+            pressText.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            isColliding = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
-            pressText.SetActive(false);
+            isColliding = false;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -27,25 +28,27 @@ public class Projectile : MonoBehaviour
 
     void DestroyProjectile()
     {
-        //Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Colliding");
-        if (collision.tag == "Objective")
+        if(collision.tag != "Enemy")
         {
-            ParticleManager.instance.SpawnParticle(ParticleManager.instance.hitParticle, transform.position, transform.rotation);
-            target.GetComponent<Objective>().DamageTaken(damage);
-            DestroyProjectile();
-        }
+            if (collision.tag == "Objective")
+            {
+                ParticleManager.instance.SpawnParticle(ParticleManager.instance.hitParticle, transform.position, transform.rotation);
+                target.GetComponent<Objective>().DamageTaken(damage);
+                Camera.main.transform.DOComplete();
+                Camera.main.transform.DOShakePosition(.4f, .5f, 20, 90, false, true);
+                DestroyProjectile();
+            }
 
-        if (collision.tag == "Projectiles")
-        {
-            ParticleManager.instance.SpawnParticle(ParticleManager.instance.fireHitParticle, transform.position, transform.rotation);
-            DestroyProjectile();
+            if (collision.tag == "Projectiles")
+            {
+                ParticleManager.instance.SpawnParticle(ParticleManager.instance.fireHitParticle, transform.position, transform.rotation);
+                DestroyProjectile();
+            }
         }
-        Debug.Log(collision.gameObject.tag);
     }
 }

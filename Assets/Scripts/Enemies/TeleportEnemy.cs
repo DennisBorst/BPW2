@@ -21,37 +21,16 @@ public class TeleportEnemy : Enemy
     private float currentTeleportCooldown;
     private bool teleportAvailable = false;
 
-    /*
-    [SerializeField] AI_State currentState;
-
-    public enum AI_State
-    {
-        walking,
-        shooting,
-        teleporting
-    }
-
-    
-    void SwitchState()
-    {
-        switch (currentState)
-        {
-            case AI_State.walking:
-                CloseDistance();
-                break;
-
-            case AI_State.shooting:
-                RangedAttack();
-                break;
-
-            case AI_State.teleporting:
-                Teleport();
-                break;
-        }
-    }
-    */
+    private Animator anim;
 
     Vector3 pos;
+
+
+    public override void Start()
+    {
+        base.Start();
+        anim = GetComponent<Animator>();
+    }
 
     public override void Update()
     {
@@ -59,7 +38,7 @@ public class TeleportEnemy : Enemy
 
         if (slowed == false)
         {
-            currentTeleportCooldown += (1f / 60f);
+            currentTeleportCooldown += Time.deltaTime;
             CloseDistance();
         }
     }
@@ -86,7 +65,7 @@ public class TeleportEnemy : Enemy
             if (teleportCooldown < currentTeleportCooldown && teleportAvailable == true)
             {
                 currentTeleportCooldown = 0;
-                Teleport();
+                anim.SetTrigger("teleport");
                 teleportAvailable = false;
                 //shieldCooldown = currentShieldCooldown;
             }
@@ -109,5 +88,10 @@ public class TeleportEnemy : Enemy
             Random.Range(-objective.position.z - stopDistance - objectiveSize, objective.position.z + stopDistance + objectiveSize));
         transform.position = pos;
         teleportAvailable = true;
+    }
+
+    void SmokeParticles()
+    {
+        ParticleManager.instance.SpawnParticle(ParticleManager.instance.smokeParticles, transform.position, transform.rotation);
     }
 }

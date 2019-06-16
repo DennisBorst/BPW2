@@ -57,6 +57,7 @@ public class PausedMenu : MonoBehaviour
     public void MainMenu(string levelName)
     {
         Toggle();
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(levelName);
     }
 

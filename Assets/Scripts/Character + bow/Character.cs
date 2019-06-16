@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
-
     public Vector2 rotationLimit;
 
     [Range(1,10)]
@@ -49,11 +48,11 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveAndRotate();
+        Rotate();
         ArrowTypeInput();
     }
 
-    void MoveAndRotate()
+    void Rotate()
     {
         //rotating
         float mousey = Input.GetAxis("Mouse Y");
@@ -112,6 +111,8 @@ public class Character : MonoBehaviour
         if (angle > 180f) return Mathf.Max(angle, 360 + from);
         return Mathf.Min(angle, to);
     }
+
+    
 
     #region Singleton
     private static Character instance;

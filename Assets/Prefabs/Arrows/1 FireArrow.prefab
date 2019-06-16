@@ -4993,7 +4993,7 @@ MonoBehaviour:
   damage: 5
   rb: {fileID: 7787045204619403681}
   explosionCollider: {fileID: 8468236496121770796}
-  explosionTime: 0.5
+  explosionTime: 0.4
   trailParticle: {fileID: 7734495622292050877}
 --- !u!1 &9094433100069626439
 GameObject:
@@ -9777,8 +9777,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5904080376700071047, guid: efdd7e891a972834886b95295113804e,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.7
+      propertyPath: m_LocalScale.x
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5904080376700071047, guid: efdd7e891a972834886b95295113804e,
         type: 3}
@@ -9787,8 +9787,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5904080376700071047, guid: efdd7e891a972834886b95295113804e,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.8
+      propertyPath: m_LocalScale.z
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efdd7e891a972834886b95295113804e, type: 3}

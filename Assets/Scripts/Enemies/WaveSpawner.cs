@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using TMPro;
 
 public class WaveSpawner : MonoBehaviour {
@@ -9,6 +10,11 @@ public class WaveSpawner : MonoBehaviour {
     //[SerializeField] private TextMeshProUGUI nextWaveText;
     //[SerializeField] private Animator anim;
     //[SerializeField] private Animator animFade;
+    [SerializeField] private Objective objectiveScript;
+    [Range(0,1)]
+    [SerializeField] private float healthPercentage;
+
+    [SerializeField] private Animator anim;
 
     [System.Serializable]
     public class Wave
@@ -27,6 +33,7 @@ public class WaveSpawner : MonoBehaviour {
     private Transform objective;
 
     private bool finishSpawning;
+    private bool startParticle = false;
 
     private void Start()
     {
@@ -36,11 +43,16 @@ public class WaveSpawner : MonoBehaviour {
 
     IEnumerator StartNextWave(int index)
     {
-        //nextWaveText.text = "Wave " + (index + 1);
-        //anim.SetTrigger("newWave");
         yield return new WaitForSeconds(timeBetweenWaves);
-        //nextWaveText.text = "";
-        //anim.enabled = false;
+        if (index != 0)
+        {
+            ParticleManager.instance.SpawnParticle(ParticleManager.instance.startRingParticle, transform.position, transform.rotation);
+            Camera.main.transform.DOComplete();
+            Camera.main.transform.DOShakePosition(2f, 1f, 10, 90, false, true);
+
+            objectiveScript.currentHealth += (healthPercentage * objectiveScript.maxHealth);
+        }
+        
         StartCoroutine(SpawnWave(index));
     }
 
@@ -85,6 +97,7 @@ public class WaveSpawner : MonoBehaviour {
             }
             else
             {
+                anim.SetTrigger("FadeOut");
                 Debug.Log("Game has finished");
                 //animFade.SetTrigger("FadeOut");
             }

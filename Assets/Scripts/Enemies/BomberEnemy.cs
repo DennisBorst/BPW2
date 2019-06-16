@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class BomberEnemy : Enemy
 {
+    private Animator anim;
+
+    public override void Start()
+    {
+        base.Start();
+        anim = GetComponent<Animator>();
+    }
 
     public override void Update()
     {
@@ -21,13 +28,13 @@ public class BomberEnemy : Enemy
     {
         if (objective != null)
         {
-            if (Vector3.Distance(transform.position, objective.position) > stopDistance)
+            if (!destinationReached)
+            {
                 transform.position = Vector3.MoveTowards(transform.position, objective.position, speed * Time.deltaTime);
+            }
             else
             {
-                objective.GetComponent<Objective>().DamageTaken(damage);
-                ParticleManager.instance.SpawnParticle(ParticleManager.instance.hitParticle, transform.position, transform.rotation);
-                Destroy(gameObject);
+                anim.SetTrigger("bomb");
             }
         }
     }
@@ -35,5 +42,13 @@ public class BomberEnemy : Enemy
     public override void CheckDistance()
     {
         base.CheckDistance();
+    }
+
+    public void Bomb()
+    {
+        objective.GetComponent<Objective>().DamageTaken(damage);
+        AttackObjective();
+        ParticleManager.instance.SpawnParticle(ParticleManager.instance.hitParticle, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 }

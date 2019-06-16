@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,10 @@ public class Enemy : MonoBehaviour
     [Header("Attacking")]
     public float timeBetweenAttacks;
     public int damage;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip hitClip;
+    private AudioSource source;
     
 
     public virtual void Start()
@@ -49,6 +54,8 @@ public class Enemy : MonoBehaviour
         defaultSpeed = speed;
         paralyzedSpeed = defaultSpeed * 2f;
         normalColor = GetComponentInChildren<MeshRenderer>();
+
+        source = GetComponent<AudioSource>();
     }
 
     public virtual void Update()
@@ -59,10 +66,15 @@ public class Enemy : MonoBehaviour
     public void DamageTaken(int damageAmount)
     {
         hpBar.value -= damageAmount;
+        if (hpBar.value > 0)
+        {
+            source.clip = hitClip;
+            source.Play();
+        }
         if (hpBar.value <= 0 && !isDead)
         {
+            ParticleManager.instance.SpawnParticle(ParticleManager.instance.deathParticles, transform.position + transform.up * 2.5f, transform.rotation);
             isDead = true;
-            //Instantiate(deathParticles, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
@@ -81,6 +93,13 @@ public class Enemy : MonoBehaviour
         {
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * maxDistanceRaycast, Color.green);
         }
+    }
+
+    public void AttackObjective()
+    {
+        Camera.main.transform.DOComplete();
+        Camera.main.transform.DOShakePosition(.4f, .5f, 20, 90, false, true);
+        Debug.Log("Attack");
     }
 
     public void StartFreeze(float slowStrength, float slowDuration, bool iceArrow, float paralyzedMovement)

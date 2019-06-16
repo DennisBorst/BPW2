@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Moving : MonoBehaviour
 {
+
     public Vector2 rotationLimit;
 
     [Range(1, 10)]

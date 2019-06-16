@@ -10,6 +10,14 @@ public class RangedEnemy : Enemy
     [SerializeField] private Transform shootPoint;
     private float attackTime;
 
+    private Animator anim;
+
+    public override void Start()
+    {
+        base.Start();
+        anim = GetComponent<Animator>();
+    }
+
     public override void Update()
     {
         base.Update();
@@ -30,7 +38,7 @@ public class RangedEnemy : Enemy
             {
                 if (Time.time >= attackTime)
                 {
-                    RangedAttack();
+                    anim.SetTrigger("ranged_attack");
                     attackTime = Time.time + timeBetweenAttacks;
                 }
             }
@@ -41,7 +49,7 @@ public class RangedEnemy : Enemy
     {
         if (objective != null)
         {
-            Instantiate(enemyBullet, shootPoint.position, transform.rotation);
+            Instantiate(enemyBullet, shootPoint.position, shootPoint.rotation);
         }
     }
 }

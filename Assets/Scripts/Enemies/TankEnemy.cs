@@ -16,6 +16,8 @@ public class TankEnemy : Enemy
     [SerializeField] private float shieldCooldown;
     private float currentShieldCooldown;
 
+    private Animator anim;
+
     /*
     public enum AI_State
     {
@@ -24,13 +26,19 @@ public class TankEnemy : Enemy
     }
     */
 
+    public override void Start()
+    {
+        base.Start();
+        anim = GetComponent<Animator>();
+    }
+
     public override void Update()
     {
         base.Update();
 
         if (slowed == false)
         {
-            currentShieldCooldown += (1f / 60f);
+            currentShieldCooldown += Time.deltaTime;
             CheckDistance();
             CloseDistance();
         }
@@ -40,7 +48,7 @@ public class TankEnemy : Enemy
     {
         if (objective != null)
         {
-            if (Vector3.Distance(transform.position, objective.position) > stopDistance)
+            if (!destinationReached)
             {
                 transform.position = Vector3.MoveTowards(transform.position, objective.position, speed * Time.deltaTime);
             }
@@ -49,7 +57,7 @@ public class TankEnemy : Enemy
                 if (Time.time >= attackTime)
                 {
                     //StartCoroutine(Attack());
-                    objective.GetComponent<Objective>().DamageTaken(damage);
+                    anim.SetTrigger("sword_attack");
                     attackTime = Time.time + timeBetweenAttacks;
                 }
             }
@@ -73,8 +81,14 @@ public class TankEnemy : Enemy
         shieldObject.SetActive(true);
         yield return new WaitForSeconds(shieldUpTime);
         shieldObject.SetActive(false);
-        
     }
+
+    public void SwordAttack()
+    {
+        objective.GetComponent<Objective>().DamageTaken(damage);
+        AttackObjective();
+    }
+
 }
 
 

@@ -10,6 +10,19 @@ public class SummonerEnemy : Enemy
     public GameObject summonEnemy;
     private float summonTime;
 
+    [SerializeField] private Transform spawn;
+
+    
+    private Animator anim;
+
+    public override void Start()
+    {
+        base.Start();
+        anim = GetComponent<Animator>();
+    }
+    
+    
+
     public override void Update()
     {
         base.Update();
@@ -26,13 +39,17 @@ public class SummonerEnemy : Enemy
         {
             if (Vector3.Distance(transform.position, objective.position) > stopDistance)
             {
+                Debug.Log("Moving");
                 transform.position = Vector3.MoveTowards(transform.position, objective.position, speed * Time.deltaTime);
+                //anim.SetBool("isFloating", true);
             }
             else
             {
                 if (Time.time >= summonTime)
                 {
-                    Summon();
+                    //anim.SetBool("isFloating", false);
+                    //Summon();
+                    anim.SetTrigger("summon");
                     summonTime = Time.time + timeBetweenAttacks;
                 }
             }
@@ -43,7 +60,12 @@ public class SummonerEnemy : Enemy
     {
         if (objective != null)
         {
-            Instantiate(summonEnemy, transform.position, transform.rotation);
+            Instantiate(summonEnemy, spawn.position, transform.rotation);
         }
+    }
+
+    void SmokeParticles()
+    {
+        ParticleManager.instance.SpawnParticle(ParticleManager.instance.smokeParticles, transform.position, transform.rotation);
     }
 }
