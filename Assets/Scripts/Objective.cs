@@ -7,6 +7,7 @@ using UnityEngine;
 public class Objective : MonoBehaviour
 {
     private GameManager gameManager;
+    private AudioSource source;
 
     [Header("UI")]
     public Slider[] hpBar;
@@ -29,6 +30,7 @@ public class Objective : MonoBehaviour
         
 
         gameManager = FindObjectOfType<GameManager>();
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -47,12 +49,19 @@ public class Objective : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            source.Play();
             ParticleManager.instance.SpawnParticle(ParticleManager.instance.deathBusParticle, transform.position - transform.up * 2f, transform.rotation);
             Camera.main.transform.DOComplete();
             Camera.main.transform.DOShakePosition(2f, 1f, 10, 90, false, true);
-            Destroy(gameObject);
-            gameManager.ReloadScene();
+            StartCoroutine(WaitForReload());
         }
+    }
+
+    IEnumerator WaitForReload()
+    {
+        yield return new WaitForSeconds(0.5f);
+        gameManager.ReloadScene();
+        Destroy(gameObject);
     }
 
     IEnumerator BloodUI()

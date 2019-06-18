@@ -15,6 +15,8 @@ public class Moving : MonoBehaviour
     private float InputZ;
     public Vector3 desiredMoveDirection;
     public float speed;
+    private float minSpeed;
+    private float maxSpeed;
     public Camera cam;
     public CharacterController controller;
     private BowScript bowScript;
@@ -24,13 +26,20 @@ public class Moving : MonoBehaviour
     {
         cam = Camera.main;
         controller = this.GetComponent<CharacterController>();
+
+        minSpeed = speed * 0.75f;
+        maxSpeed = speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
         Rotate();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
     }
 
     void Rotate()
@@ -61,6 +70,14 @@ public class Moving : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
+        if(InputZ > 0.5f && InputX > 0.5f || InputZ < -0.5f && InputX < -0.5f || InputZ < -0.5f && InputX > 0.5f || InputZ > 0.5f && InputX < -0.5f)
+        {
+            speed = minSpeed;
+        }
+        else
+        {
+            speed = maxSpeed;
+        }
         desiredMoveDirection = forward * InputZ + right * InputX;
         controller.Move(desiredMoveDirection * Time.deltaTime * speed);
     }

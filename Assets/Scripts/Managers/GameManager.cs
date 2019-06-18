@@ -14,10 +14,13 @@ public class GameManager : MonoBehaviour
     {
         if (!menu)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             anim.SetTrigger("FadeIn");
         }
         else
         {
+            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             anim.SetTrigger("Fade");
         }

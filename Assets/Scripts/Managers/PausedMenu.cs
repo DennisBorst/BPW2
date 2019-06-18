@@ -37,6 +37,7 @@ public class PausedMenu : MonoBehaviour
 
             if (ui.activeSelf)
             {
+                Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0f;
                 moving.enabled = false;
@@ -46,6 +47,7 @@ public class PausedMenu : MonoBehaviour
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 Time.timeScale = 1f;
                 moving.enabled = true;
                 character.enabled = true;

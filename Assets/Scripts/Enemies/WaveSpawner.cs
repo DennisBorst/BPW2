@@ -6,11 +6,9 @@ using TMPro;
 
 public class WaveSpawner : MonoBehaviour {
 
-    //[Header("UI")]
-    //[SerializeField] private TextMeshProUGUI nextWaveText;
-    //[SerializeField] private Animator anim;
-    //[SerializeField] private Animator animFade;
+
     [SerializeField] private Objective objectiveScript;
+    private AudioSource source;
     [Range(0,1)]
     [SerializeField] private float healthPercentage;
 
@@ -39,6 +37,8 @@ public class WaveSpawner : MonoBehaviour {
     {
         objective = GameObject.FindGameObjectWithTag("Objective").transform;
         StartCoroutine(StartNextWave(currentWaveIndex));
+
+        source = GetComponent<AudioSource>();
     }
 
     IEnumerator StartNextWave(int index)
@@ -46,6 +46,7 @@ public class WaveSpawner : MonoBehaviour {
         yield return new WaitForSeconds(timeBetweenWaves);
         if (index != 0)
         {
+            source.Play();
             ParticleManager.instance.SpawnParticle(ParticleManager.instance.startRingParticle, transform.position, transform.rotation);
             Camera.main.transform.DOComplete();
             Camera.main.transform.DOShakePosition(2f, 1f, 10, 90, false, true);

@@ -17,7 +17,8 @@ public class BowScript : MonoBehaviour
 
     [Header("Force")]
     [SerializeField] private float forceDuration;
-    public float maxForceDuration;
+    [SerializeField] private float minForceDuration;
+    [SerializeField] private float maxForceDuration;
 
     [Space]
 
@@ -140,6 +141,7 @@ public class BowScript : MonoBehaviour
     {
         canShoot = true;
         PrepareParticles(character.currentArrowSlot);
+        forceDuration = minForceDuration;
 
         while (forceDuration <= maxForceDuration)
         {
